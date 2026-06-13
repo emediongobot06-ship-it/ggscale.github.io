@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EG Scale – Helping Businesses Grow With Purpose</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --cream-dark: #EDE6D8;
+    --brown-dark: #2C1F14;
+    --brown-mid: #5C3D1E;
+    --gold: #B8922A;
+    --gold-light: #D4A843;
+    --text: #2C1F14;
+    --text-muted: #7A6652;
+    --white: #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: var(--cream);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(184,146,42,0.15);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--brown-dark);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--gold); }
+  nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-left: 32px;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--brown-dark); }
+  .nav-cta {
+    background: var(--brown-dark) !important;
+    color: var(--white) !important;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-weight: 600 !important;
+  }
+  .nav-cta:hover { background: var(--brown-mid) !important; opacity: 0.9; }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 88vh;
+    background: var(--cream);
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 60px;
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--brown-dark);
+    margin-bottom: 20px;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 400px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--brown-dark);
+    color: var(--white);
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    align-self: flex-start;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(44,31,20,0.25);
+  }
+
+  .hero-right {
+    position: relative;
+    background: var(--brown-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 60% 40%, rgba(184,146,42,0.18) 0%, transparent 70%);
+  }
+  .hero-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  .person-silhouette {
+    width: 320px;
+    height: 480px;
+    background: linear-gradient(180deg, rgba(184,146,42,0.15) 0%, rgba(92,61,30,0.3) 100%);
+    border-radius: 160px 160px 0 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .person-silhouette-inner {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 20px;
+    line-height: 1.5;
+  }
+
+  /* Floating cards */
+  .float-cards {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .fcard {
+    position: absolute;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 14px 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    min-width: 130px;
+  }
+  .fcard-icon { font-size: 1.2rem; margin-bottom: 4px; }
+  .fcard-label { font-size: 0.78rem; font-weight: 600; color: var(--brown-dark); }
+  .fcard-sub { font-size: 0.68rem; color: var(--text-muted); margin-top: 2px; }
+  .fcard-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--white);
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-top: 5px;
+  }
+  .fcard-1 { top: 14%; left: 6%; }
+  .fcard-2 { top: 10%; right: 6%; }
+  .fcard-3 { bottom: 32%; left: 4%; }
+  .fcard-4 { bottom: 28%; right: 5%; }
+
+  /* TRUST BAR */
+  .trust-bar {
+    background: var(--white);
+    padding: 64px 60px;
+    text-align: center;
+    border-top: 1px solid var(--cream-dark);
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .trust-bar h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--brown-dark);
+    margin-bottom: 40px;
+  }
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .trust-card {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: left;
+    border: 1px solid var(--cream-dark);
+  }
+  .trust-card-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .trust-stats { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+  .trust-stat { font-size: 0.82rem; color: var(--text-muted); }
+  .trust-stat strong { color: var(--brown-dark); font-weight: 700; }
+  .trust-quote { font-size: 0.8rem; color: var(--text-muted); font-style: italic; line-height: 1.5; }
+  .trust-author { margin-top: 10px; font-size: 0.75rem; font-weight: 600; color: var(--brown-dark); }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px;
+  }
+  .badge-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .badge-text { font-size: 0.85rem; font-weight: 700; color: var(--brown-dark); line-height: 1.4; }
+  .badge-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+  /* WHO IT'S FOR */
+  .who-section {
+    padding: 100px 60px;
+    background: var(--cream);
+    text-align: center;
+  }
+  .section-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 800;
+    color: var(--brown-dark);
+    margin-bottom: 56px;
+  }
+  .who-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .who-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--cream-dark);
+    transition: box-shadow 0.2s;
+  }
+  .who-item:hover { box-shadow: 0 4px 20px rgba(44,31,20,0.08); }
+  .who-check {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .who-check svg { width: 14px; height: 14px; }
+  .who-label { font-size: 0.95rem; font-weight: 600; color: var(--brown-dark); line-height: 1.4; }
+
+  /* ABOUT */
+  .about-section {
+    background: var(--white);
+    padding: 100px 60px;
+  }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 72px;
+    max-width: 1000px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  .about-photo {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: var(--cream-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .about-photo-placeholder {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    padding: 40px;
+  }
+  .about-photo-placeholder .placeholder-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.4;
+  }
+  .about-photo-accent {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 80px;
+    height: 80px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+  .about-titles { display: flex; flex-direction: column; gap: 0; margin-bottom: 28px; }
+  .about-role {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--brown-dark);
+    padding: 12px 0;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .about-role:first-child { border-top: 1px solid var(--cream-dark); }
+  .about-bio {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--brown-dark);
+    padding: 100px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(184,146,42,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-diamond {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 60px;
+    height: 60px;
+    background: rgba(184,146,42,0.2);
+    border-radius: 6px;
+  }
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    color: var(--white);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+  }
+  .btn-outline {
+    display: inline-block;
+    background: transparent;
+    color: var(--brown-dark);
+    background: var(--cream);
+    padding: 16px 36px;
+    border-radius: 40px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    z-index: 1;
+  }
+  .btn-outline:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+
+  /* FOOTER */
+  footer {
+    background: #1A110A;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 28px 40px;
+    font-size: 0.8rem;
+  }
+  footer span { color: var(--gold); opacity: 0.8; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    nav .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 60px 24px 40px; }
+    .hero-right { min-height: 320px; }
+    .fcard-1 { top: 10%; left: 4%; }
+    .fcard-2 { top: 8%; right: 4%; }
+    .fcard-3 { bottom: 10%; left: 4%; }
+    .fcard-4 { display: none; }
+    .trust-bar { padding: 48px 24px; }
+    .trust-grid { grid-template-columns: 1fr; }
+    .who-section { padding: 72px 24px; }
+    .who-grid { grid-template-columns: 1fr; }
+    .about-section { padding: 72px 24px; }
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .cta-section { padding: 80px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">EG<span>Scale</span></div>
+  <div class="nav-links">
+    <a href="#who">Who It's For</a>
+    <a href="#about">About</a>
+    <a href="https://egscale.com/book" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Business Growth · CRM · RevOps</p>
+    <h1 class="hero-headline">Helping Businesses Turn Strategy Into <em>Revenue.</em></h1>
+    <p class="hero-sub">Through coaching, CRM systems, and business development frameworks that drive measurable, predictable growth.</p>
+    <a href="https://egscale.com/book" class="btn-primary">Book Your Growth Strategy Session</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-placeholder">
+      <div class="person-silhouette">
+        <div class="person-silhouette-inner">Your photo<br />goes here</div>
+      </div>
+    </div>
+    <div class="float-cards">
+      <div class="fcard fcard-1">
+        <div class="fcard-icon">📈</div>
+        <div class="fcard-label">Revenue Growth</div>
+        <div class="fcard-sub">+30% avg. increase</div>
+      </div>
+      <div class="fcard fcard-2">
+        <div class="fcard-icon">🏆</div>
+        <div class="fcard-label">CRM Strategy</div>
+        <div class="fcard-badge">Case Study</div>
+      </div>
+      <div class="fcard fcard-3">
+        <div class="fcard-icon">🤝</div>
+        <div class="fcard-label">Business Dev</div>
+        <div class="fcard-badge">Case Study</div>
+      </div>
+      <div class="fcard fcard-4">
+        <div class="fcard-icon">💬</div>
+        <div class="fcard-label">Coaching</div>
+        <div class="fcard-sub">1-on-1 & Group</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<section class="trust-bar">
+  <h2>Trusted by founders, professionals,<br>and growing businesses.</h2>
+  <div class="trust-grid">
+    <div class="trust-card">
+      <div class="trust-card-title">Student Transformation</div>
+      <div class="trust-stats">
+        <div class="trust-stat">Before: <strong>621 contacts, stalled pipeline</strong></div>
+        <div class="trust-stat">After: <strong>+30% revenue · 77% close rate</strong></div>
+      </div>
+      <div class="trust-quote">"EG Scale helped me replace guesswork with systems that actually create growth through CRM and practical strategy."</div>
+      <div class="trust-author">— Tanisha D., Founder</div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-card-title">LinkedIn Testimonial</div>
+      <div class="trust-quote" style="margin-top:8px">"Her business-growth content contains the most actionable advice I've seen. She breaks down growth through CRM, RevOps, and real business strategy better than anyone."</div>
+      <div class="trust-author">— Mildara G., Business Development Consultant</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="trust-card trust-badge">
+        <div class="badge-icon">🏅</div>
+        <div>
+          <div class="badge-text">HubSpot Gold Certified</div>
+          <div class="badge-sub">Verified Partner & Educator</div>
+        </div>
+      </div>
+      <div class="trust-card trust-badge" style="background:#2C1F14;">
+        <div class="badge-icon" style="background:rgba(255,255,255,0.1);font-size:1rem;">▶️</div>
+        <div>
+          <div class="badge-text" style="color:#fff;">YouTube Community</div>
+          <div class="badge-sub" style="color:rgba(255,255,255,0.5);">50,000+ subscribers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="who-section" id="who">
+  <p class="section-eyebrow">Ideal Clients</p>
+  <h2 class="section-title">Who This Is For</h2>
+  <div class="who-grid">
+    <div class="who-item">
+      <div class="who-check">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="who-label">Business owners struggling to scale past a revenue plateau</div>
+    </div>
+    <div class="who-item">
+      <div class="who-check">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="who-label">Founders building predictable, repeatable revenue systems</div>
+    </div>
+    <div class="who-item">
+      <div class="who-check">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="who-label">Professionals transitioning into RevOps and CRM roles</div>
+    </div>
+    <div class="who-item">
+      <div class="who-check">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="who-label">Teams that need structure, systems, and accountability</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-photo">
+      <div class="about-photo-placeholder">
+        <span class="placeholder-icon">👤</span>
+        Your photo<br/>goes here
+      </div>
+      <div class="about-photo-accent"></div>
+    </div>
+    <div>
+      <p class="section-eyebrow">About EG Scale</p>
+      <h2 class="section-title" style="margin-bottom:28px;text-align:left;">The Person<br>Behind the Growth</h2>
+      <div class="about-titles">
+        <div class="about-role">HubSpot Coach</div>
+        <div class="about-role">RevOps Educator</div>
+        <div class="about-role">Business Development Consultant</div>
+      </div>
+      <p class="about-bio">I help businesses replace guesswork with systems that create predictable growth through CRM, RevOps, and practical business strategy. Whether you're a founder who's hit a ceiling or a professional who wants to break into the world of revenue operations — I'll give you the frameworks and accountability to make it happen.</p>
+      <a href="https://egscale.com/book" class="btn-primary">Work With Me</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="cta-diamond"></div>
+  <h2>Ready to build a business designed for growth?</h2>
+  <a href="https://egscale.com/book" class="btn-outline">Book Your Consultation Today</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 <span>EG Scale</span>. All rights reserved.
+</footer>
+
+</body>
+</html>
